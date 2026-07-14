@@ -1,0 +1,22 @@
+name: Anti-Slop Replay Test
+
+on:
+  pull_request_target:
+    types: [opened, reopened]
+
+permissions:
+  contents: read
+  issues: read
+  pull-requests: read
+
+jobs:
+  anti-slop:
+    runs-on: ubuntu-latest
+    steps:
+      - id: scan
+        uses: peakoss/anti-slop@v0.3.0
+        with:
+          max-failures: 4
+          exempt-author-association: ""
+          close-pr: false
+          lock-pr: false
